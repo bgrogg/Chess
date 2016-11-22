@@ -15,21 +15,30 @@ class Board
 
   def self.init_pos
     # byebug
-    starting_board = Array.new(8) { Array.new(8) {[Nulpiece.new]} }
-    nob = noble_pieces
-    nob2 = noble_pieces
-    pawn = Array.new(8) { Pawn.new }
-    pawn2 = Array.new(8) { Pawn.new }
+    starting_board = Array.new(8) { Array.new(8) {} }
+    nob = noble_pieces(:black)
+    nob2 = noble_pieces(:white)
+    pawn = Array.new(8) { Pawn.new(:white) }
+    pawn2 = Array.new(8) { Pawn.new(:black) }
+    nul1 = Array.new(8) { Nulpiece.new(:white) }
+    nul2 = Array.new(8) { Nulpiece.new(:white) }
+    nul3 = Array.new(8) { Nulpiece.new(:white) }
+    nul4 = Array.new(8) { Nulpiece.new(:white) }
 
-    assign_positions(0, nob, starting_board)
-    assign_positions(7, nob2, starting_board)
+    assign_positions(0, nob2, starting_board)
     assign_positions(1, pawn, starting_board)
+    assign_positions(2, nul1, starting_board)
+    assign_positions(3, nul2, starting_board)
+    assign_positions(4, nul3, starting_board)
+    assign_positions(5, nul4, starting_board)
     assign_positions(6, pawn2, starting_board)
+    assign_positions(7, nob, starting_board)
 
-    starting_board
+    @board  = starting_board
   end
 
   def self.assign_positions(row, starting_set, starting_board)
+
     8.times do |idx|
       starting_board[row][idx] = starting_set[idx]
 
@@ -38,10 +47,13 @@ class Board
 
   end
 
-  def self.noble_pieces
-    part_1 = [Rook.new, Knight.new, Bishop.new, Queen.new, King.new]
-    part_2 = [Bishop.new, Knight.new, Rook.new]
-    part_1 + part_2
+  def self.noble_pieces(color)
+
+    part_1 = [Rook.new(color), Knight.new(color)]
+    part_2 = [Bishop.new(color), Queen.new(color)]
+    part_3 = [King.new(color), Bishop.new(color)]
+    part_4 = [Knight.new(color), Rook.new(color)]
+    part_1 + part_2 + part_3 + part_4
   end
 
   def self.render
@@ -53,10 +65,7 @@ class Board
     s_row, s_col = start_pos
     e_row, e_col = end_pos
     @board[s_row, s_col], @board[e_row, e_col] = @board[e_row, e_col], @board[s_row, s_col]
-    # piece = @board[s_row, s_col]
-    # @board[e_row, e_col] = piece
-    # @board[s_row, s_col] = Nulpiece.new
-    # piece.position = [e_row, e_col]
+
   end
 
   def []=(pos, piece)
@@ -70,5 +79,3 @@ class Board
   end
 
 end
-
-git filter-branch -f --env-filter "GIT_AUTHOR_NAME='Victor Guillen'; GIT_AUTHOR_EMAIL='victor_guillen@hotmail.com'; GIT_COMMITTER_NAME='Victor Guillen'; GIT_COMMITTER_EMAIL='victor_guillen@hotmail.com';" HEAD

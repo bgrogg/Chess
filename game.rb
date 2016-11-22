@@ -7,22 +7,18 @@ class Game
 
   def initialize
     @board = Board.new
-    @display = Display.new (@board)
+    @disp = Display.new (@board)
   end
 
   def display
-    @display.render
+    @disp.render(@board)
   end
 
   def get_input
     puts "Which piece would you like to move?"
     piece_to_move = gets.chomp.split(",")
     piece_to_move.map(&:to_i)
-    # puts "Where would you like to move?"
-    # place_to_move = gets.chomp.split(",")
-    # place_to_move.map(&:to_i)
 
-    # [piece_to_move, place_to_move]
   end
 
   def move
