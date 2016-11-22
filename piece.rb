@@ -1,5 +1,23 @@
 class Piece
+
+  attr_accessor :position
+
   def initialize
+    @position = [nil, nil]
+  end
+
+  def []=(pos, piece)
+    row, col = pos
+    board[row][col] = piece
+  end
+
+  def [](pos)
+    row, col = pos
+    board[row][col]
+  end
+
+  def position=(position)
+    @position = position
   end
 
 end
@@ -10,25 +28,38 @@ class Nulpiece < Piece
 end
 
 class King < Piece
- "K"
+
+  def initialize
+    super
+  end
 end
 
 class Queen < Piece
-  "Q"
+  def initialize
+    super
+  end
 end
 
 class Knight < Piece
-  "k"
+  def initialize
+    super
+  end
 end
 
 class Bishop < Piece
-  "B"
+  def initialize
+    super
+  end
 end
 
 class Rook < Piece
-  "R"
+  def initialize
+    super
+  end
 end
 
 class Pawn < Piece
-  "P"
+  def initialize
+    super
+  end
 end
