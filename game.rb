@@ -1,5 +1,5 @@
-require_relative 'board.rb'
-require_relative 'display.rb'
+require_relative 'board'
+require_relative 'display'
 
 class Game
 

@@ -1,6 +1,13 @@
 require "byebug"
-require_relative "piece.rb"
-require_relative "display.rb"
+require_relative "piece"
+require_relative "display"
+require_relative 'rook'
+require_relative 'knight'
+require_relative 'king'
+require_relative 'queen'
+require_relative 'bishop'
+require_relative 'pawn'
+require_relative 'nulpiece'
 
 
 class Board
@@ -20,10 +27,10 @@ class Board
     nob2 = noble_pieces(:white)
     pawn = Array.new(8) { Pawn.new(:white) }
     pawn2 = Array.new(8) { Pawn.new(:black) }
-    nul1 = Array.new(8) { Nulpiece.new(:white) }
-    nul2 = Array.new(8) { Nulpiece.new(:white) }
-    nul3 = Array.new(8) { Nulpiece.new(:white) }
-    nul4 = Array.new(8) { Nulpiece.new(:white) }
+    nul1 = Array.new(8) { Nulpiece.instance }
+    nul2 = Array.new(8) { Nulpiece.instance }
+    nul3 = Array.new(8) { Nulpiece.instance }
+    nul4 = Array.new(8) { Nulpiece.instance }
 
     assign_positions(0, nob2, starting_board)
     assign_positions(1, pawn, starting_board)
@@ -64,13 +71,13 @@ class Board
   def move_piece(start_pos, end_pos)
     s_row, s_col = start_pos
     e_row, e_col = end_pos
-    @board[s_row, s_col], @board[e_row, e_col] = @board[e_row, e_col], @board[s_row, s_col]
+    @board[s_row][s_col], @board[e_row][e_col] = @board[e_row][e_col], @board[s_row][s_col]
 
   end
 
   def []=(pos, piece)
     row, col = pos
-    board[row][col] = piece
+    board[row][col] = piecer
   end
 
   def [](pos)
